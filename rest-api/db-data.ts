@@ -710,7 +710,7 @@ export function findAllUsers() {
   return <any[]> Object.values(USERS);
 }
 
-export function findAllCourses() {
+export function findAllCourses(): any {
   return Object.values(COURSES);
 }
 
