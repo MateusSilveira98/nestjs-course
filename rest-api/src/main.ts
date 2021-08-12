@@ -7,15 +7,14 @@ import { FallbackExceptionFilter } from './filters/fallback.filter';
 import { HttpExceptionFilter } from './filters/http.filter';
 import { ValidationFilter } from './filters/validation.filter';
 import { ValidationException } from './filters/validation.exception';
+import { AllExceptionsFilter } from './filters/all.filter';
 
 mongoose.set('useFindAndModify', false);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(
-    new FallbackExceptionFilter(),
-    new ValidationFilter(),
-    new HttpExceptionFilter(),
+    new AllExceptionsFilter(),
   );
   app.useGlobalPipes(new ValidationPipe({
     skipMissingProperties: true,

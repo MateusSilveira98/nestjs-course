@@ -1,14 +1,18 @@
-import { BadRequestException, Body, Controller, Delete, Get, Inject, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { ToIntegerPipe } from '../../pipes/to-integer.pipe';
+import { BadRequestException, Body, Controller, Delete, Get, Inject, NotFoundException, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Course } from '../../../../shared/course';
 import { CoursesRepository } from '../repositories/courses.repository';
+import { AuthenticationGuard } from '../../guards/authentication.guard';
+import { AdminGuard } from '../../guards/admin.guard';
 
 @Controller(`courses`)
+@UseGuards(AuthenticationGuard)
 export class CoursesController {
   constructor(
+    @Inject(CoursesRepository)
     private coursesDB: CoursesRepository) {}
 
   @Post()
+  @UseGuards(AdminGuard)
   async createCourse(
     @Body()
     course: Partial<Course>,
@@ -34,6 +38,7 @@ export class CoursesController {
   }
 
   @Put(':courseId')
+  @UseGuards(AdminGuard)
   async updateCourse(
     @Param(`courseId`)
     courseId: string,
@@ -48,6 +53,7 @@ export class CoursesController {
   }
 
   @Delete(':courseId')
+  @UseGuards(AdminGuard)
   async deleteCourse(
     @Param(`courseId`)
     courseId: string,

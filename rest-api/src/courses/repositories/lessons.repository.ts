@@ -7,7 +7,7 @@ import * as mongoose from "mongoose"
 @Injectable()
 export class LessonsRepository {
   constructor(
-    @InjectModel('Lessons')
+    @InjectModel('Lesson')
     private lessonsModel: Model<Lesson>,
   ) { }
 

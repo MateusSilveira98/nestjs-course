@@ -5,6 +5,7 @@ import { LessonsRepository } from '../repositories/lessons.repository';
 @Controller(`lessons`)
 export class LessonsController {
   constructor(
+    @Inject(LessonsRepository)
     private lessonsDB: LessonsRepository) {}
 
   @Get('')
